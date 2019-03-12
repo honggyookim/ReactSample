@@ -3,6 +3,10 @@ import MoviePoster from './MoviePoster';
 import { Grid, GridColumn } from '@progress/kendo-react-grid';
 
 class MovieBoard extends Component {
+  /**
+   * props로 넘어온 배열데이터를 map()으로 순환시켜 각 요소마다 <tr><td></td></tr>를 생성하고
+   * 요소의 영화 정보를 입력
+   */
   render() {
     return(
       <Fragment>

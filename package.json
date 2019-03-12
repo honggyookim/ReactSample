@@ -25,6 +25,10 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "bugs": {
+    "url": "https://github.com/honggyookim/ReactSample/issues",
+    "email": "project@hostname.com"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
