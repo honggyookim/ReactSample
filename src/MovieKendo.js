@@ -14,7 +14,7 @@ class MovieKendo extends Component {
     take: 12
   }
 
-  /* 페이지가 변할 때 호출되는 함수 - Kendo */
+  /* 페이지가 변할 때 호출되는 함수 - Kendo 내장 이벤트를 바인딩 */
   pageChange = e => {
     this.setState({
       skip: e.page.skip,

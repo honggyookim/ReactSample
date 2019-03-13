@@ -18,12 +18,21 @@ class App extends Component {
     isFetching: true
   }
 
-  // 컴포넌트가 성공적으로 리액트에 로드되었을 때
+  /** 
+   * 컴포넌트가 성공적으로 리액트에 로드되었을 때
+   * * Constructor -> componentWillMount(deprecated) -> render -> componentDidMount
+   * 컴포넌트가 렌더되었으니 할 일 있으면 하세요 라는 의미
+   * */ 
   componentDidMount() {
     this.getMovie();
   }
 
-  // 컴포넌트가 성공적으로 업데이트되었을 때
+  /**
+   * 컴포넌트가 성공적으로 업데이트되었을 때
+   * @param {*} prevProps 업데이트 되기 전의 props
+   * @param {*} prevStates 업데이트 되기 전의 state
+   * 데이터의 변경 또는 추가로 인해 컴포넌트가 업데이트되었으니 볼일 보세요
+   */ 
   componentDidUpdate(prevProps, prevStates) {
     if(prevStates.pageNo !== this.state.pageNo)
       this.getMovie();
@@ -47,9 +56,11 @@ class App extends Component {
   // 검색 input의 값이 변할 때 발생하는 이벤트 핸들러 - 값이 바뀔 때마다 state에 반영
   handleChange = e => this.setState({keyword: e.target.value})
 
-  /** 영화 정보를 가져옴 
+  /** 
+   * 영화 정보를 가져옴 
    * async는 비동기로 처리하되 getMovieData()로부터 데이터를 가져올 때 까지 대기(await)
-   * 데이터를 가져온다는 것 성공적으로 완료됨이 아니라 성공이든 실패든 그 결괏값을 받는다는 의미
+   * 데이터를 가져온다는 건 성공적으로 완료됨이 아니라 성공이든 실패든 그 결괏값을 받는다는 의미
+   * 데이터를 가져오면, 해당 데이터를 state에 반영
    */
   getMovie = async () => {
     const movies = await this.getMovieData();
@@ -60,7 +71,7 @@ class App extends Component {
   }
 
   /**
-   * url로부터 영화정보를 json 형식으로 가져옴
+   * url로부터 영화정보를 json 형식으로 GET
    * 기본 설정은 평점이 높은 순으로 정렬
    * @param url 영화정보를 가져올 API 주소
    * @param page 가져올 인덱스 (page * limit)부터
@@ -82,7 +93,7 @@ class App extends Component {
     })
     .then(response =>  {
       /**
-       * @param count 총 영화 개수
+       * @param count 총 영화 데이터 개수
        * @param isFetching 데이터를 가져오는 중인지 완료 상태인지 여부
        */
       this.setState({
@@ -108,7 +119,7 @@ class App extends Component {
       return <MovieKendo data={this.state.movies} count={this.state.count} nextPage={this.showNextPage} />
   }
 
-  // 변경된 페이지 적용을 위한 페이징 작업
+  // 변경된 페이지 적용을 위한 페이징 작업 - KendoUI가 적용된 컴포넌트에서 호출
   showNextPage = no => {
     this.setState({
       isFetching: true,
